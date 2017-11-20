@@ -60,7 +60,7 @@
 	            <a href="#s1">分类</a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/springboot/">springboot</a></li><li><a class="category-link" href="/categories/trasaction/">trasaction</a></li><li><a class="category-link" href="/categories/trasaction-spring-propagation/">trasaction spring propagation</a></li><li><a class="category-link" href="/categories/前端/">前端</a></li><li><a class="category-link" href="/categories/源码/">源码</a>
+	                        <a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/redis/">redis</a></li><li><a class="category-link" href="/categories/springboot/">springboot</a></li><li><a class="category-link" href="/categories/trasaction/">trasaction</a></li><li><a class="category-link" href="/categories/trasaction-spring-propagation/">trasaction spring propagation</a></li><li><a class="category-link" href="/categories/前端/">前端</a></li><li><a class="category-link" href="/categories/数据库/">数据库</a></li><li><a class="category-link" href="/categories/源码/">源码</a>
 	                    </ul>
 	        </li>
 	        
@@ -94,26 +94,59 @@
 </nav>
 
         <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url(https://i.imgur.com/bp1F1d4.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >redis部署到Linux</h2></a>
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(https://i.imgur.com/o8UMa4K.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >数据库的存储过程</h2></a>
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                <h2 id="redis【内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件】"><a href="#redis【内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件】" class="headerlink" title="redis【内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件】"></a>redis【内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件】</h2><p>【1、 安装 gcc】<br>yum install -y gcc g++ gcc-c++ make</p>
-<p>【2、 解压 redis】<br>tar zxvf redis-3.0.0.tar.gz<br>cd redis-3.0.0</p>
-<p>【3、 执行 make 编译命令】<br>make MALLOC=libc</p>
-<p>安装。make install PREFIX=/usr/local/redisbin  【安装后会在redisbin目录下生成一个bin目录，里面存放的是redis的可执行程序】</p>
-<p>【4、 启动关闭 redis】</p>
-<pre><code>【4.1 直接在redis安装目录下启动关闭】
-启动 src/redis-server &amp; （添加 &amp;执行后台启动 ）
-关闭 src/redis-cli shutdown
+                <h2 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h2><p>   储存过程和我们平常用的操作数据库的SQL语句不同的是，他是一组为了完成特定功能的SQL的集合，事先编译好储存在数据库中，而不需要使用的时候先编译，用户只需要根据储存过程的名称和给特定的参数（如果有）就可以重复调用。    相对于常用的SQL操作，效率更快。</p>
+<p>   储存过程的模式和Java中的函数的封装有极大的相似之处。当平台或应用程序不同，要实现相同的功能，储存过程就成了不二直选了。</p>
+<h2 id="2、优点"><a href="#2、优点" class="headerlink" title="2、优点"></a>2、优点</h2><p>2.1 <strong>增强SQL的功能和灵活性</strong>，我们能通过流程控制语句来编写储存过程，实现较为复杂的逻辑</p>
+<p>2.2 储存过程<strong>实现较快的执行速度</strong>。当批量重复执行同一段SQL时，储存过程因为是预先编译好的，那么查询，优化器就能对其预先进行分析，并给出执行计划。相对于批量处理，每次运行都要编译和优化，速度明显要快很多。</p>
+<p>2.3 存储过程可被作为一种<strong>安全机制</strong>来充分利用。系统管理员通过执行某一存储过程的权限进行限制，能够实现对相应的数据的访问权限的限制，避免了非授权用户对数据的访问，保证了数据的安全。</p>
+<h2 id="3、缺点"><a href="#3、缺点" class="headerlink" title="3、缺点"></a>3、缺点</h2><p>3.1 不易维护，逻辑改变修改起来很麻烦</p>
+<p>3.2 虽然能减少代码量，提高开发效率，但太耗性能。 </p>
+<h2 id="4、基本语法"><a href="#4、基本语法" class="headerlink" title="4、基本语法"></a>4、基本语法</h2><p>4.1 创建</p>
+<pre><code>create procedure p-name(带输入参数、输出参数)
+begin
+........
+end
 
-【4.2 install 后的启动关闭，切换到install的目录】
+例如：
+    DROP PROCEDURE IF EXISTS `countDevicesName`;
+    DELIMITER ;;
+    CREATE PROCEDURE `countDevicesName`(IN dName VARCHAR(12),OUT deviceCount INT)
+    BEGIN
+    SELECT COUNT(*) INTO deviceCount FROM cus_device WHERE device_name = dName;
 
-【启动】bin/redis-server redis.conf 【redis.conf:redis安装目录下的copy文件，改demonize yes即可后台启动】
-【关闭】bin/redis-cli shutdown
-</code></pre><p>【5、 查看 redis 是否启动】<br>ps -ef | grep redis 查看进程</p>
+    END
+    ;;
+    DELIMITER ;
 
+解释：传入设备名称（IN dName VARCHAR(12)）,输出设备数量（OUT deviceCount INT）
+    IN：输入参数
+    OUT：输出参数
+    参数格式：IN/OUT(输入/输出) 变量名 变量类型
+</code></pre><p>4.2 调用</p>
+<pre><code>call p-name();
+</code></pre><p>4.3 删除</p>
+<pre><code>drop procedure p-name();
+</code></pre><h2 id="5、mybatis调用储存过程"><a href="#5、mybatis调用储存过程" class="headerlink" title="5、mybatis调用储存过程"></a>5、mybatis调用储存过程</h2><pre><code> &lt;select id=&quot;count&quot; parameterType=&quot;DevicePOJO&quot; useCache=&quot;false&quot;
+    statementType=&quot;CALLABLE&quot;&gt; 
+    &lt;![CDATA[ 
+    call countDevicesName(
+    #{devoceName,mode=IN,jdbcType=VARCHAR},
+    #{deviceCount,mode=OUT,jdbcType=INTEGER});
+    ]]&gt;
+  &lt;/select&gt;
+
+解释：
+    statementType=&quot;CALLABLE&quot;:告诉mybatis执行存储过程，不然会报错
+    mode=IN 输入参数
+    mode=OUT 输出参数
+    jdbcType 数据库定义的字段类型
+    这样写就会自动回填到相应的变量
+</code></pre>
             </div>
 
             <!-- Post Comments -->
@@ -175,8 +208,8 @@ $('.btn_click_load').click(function() {
 -->
 <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'http://yoursite.com/2017/11/13/Linux/redis/';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://yoursite.com/2017/11/13/Linux/redis/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'http://yoursite.com/2016/11/04/procedure01/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://yoursite.com/2016/11/04/procedure01/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 </script>
 
