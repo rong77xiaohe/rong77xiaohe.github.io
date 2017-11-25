@@ -95,13 +95,32 @@
 
         <div id="main" >
             <div class ="post_page_title_img" style="height: 25rem;background-image: url(https://i.imgur.com/554Od93.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >springboot 简介</h2></a>
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >springboot 初入门</h2></a>
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                <p>demo2</p>
-<h1 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h1><p>Spring Boot并不是不对Spring功能上的增强，而是提供了一种快速使用Spring的方式。<br><img src="https://i.imgur.com/ldWKckc.png" alt=""></p>
+                <h1 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h1><p>Spring Boot并不是不对Spring功能上的增强，而是提供了一种快速使用Spring的方式。<br><img src="https://i.imgur.com/ldWKckc.png" alt=""></p>
+<h2 id="1、快速创建一个spring应用"><a href="#1、快速创建一个spring应用" class="headerlink" title="1、快速创建一个spring应用"></a>1、快速创建一个spring应用</h2><h3 id="1-1-pom文件的设置"><a href="#1-1-pom文件的设置" class="headerlink" title="1.1 pom文件的设置"></a>1.1 pom文件的设置</h3><p>依赖的父工程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;parent&gt;</div><div class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;1.4.0.RELEASE&lt;/version&gt;</div><div class="line">&lt;/parent&gt;</div></pre></td></tr></table></figure></p>
+<p>还需要依赖简单的web应用启动器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;dependencies&gt;</div><div class="line">       &lt;dependency&gt;</div><div class="line">           &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">           &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</div><div class="line">       &lt;/dependency&gt;</div><div class="line">   &lt;/dependencies&gt;</div></pre></td></tr></table></figure>
+<p>解释：spring-boot-start-*包含44种，其实它就是根据常用的开发习惯约定束成包装的一些个<br>     jar包，就相当于是一系列的工具依赖包，<font color="red">简化开发人员的jar包引入</font></p>
+<pre><code>spring-boot-starter-web:包含以下主要jar包
+                        spring-web spring-webmvc  
+                        spring-* 
+                        tomcat-embed-*(内嵌的tomcat服务器)
+                        jackson（处理jason数据）
+                        spring-boot-autoconfigure（spring提供的自动配置功能包）
+</code></pre><p>也可通过<font color="red" size="5">mvn dependency:tree</font>查看依赖树：</p>
+<p><img src="https://i.imgur.com/I3Y7SqS.png" alt=""></p>
+<h3 id="2、编写一个应用启动类"><a href="#2、编写一个应用启动类" class="headerlink" title="2、编写一个应用启动类"></a>2、编写一个应用启动类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">import org.springframework.boot.*;</div><div class="line">import org.springframework.boot.autoconfigure.*;</div><div class="line">import org.springframework.stereotype.*;</div><div class="line">import org.springframework.web.bind.annotation.*;</div><div class="line">@RestController</div><div class="line">@SpringBootApplication  //一个注解代替三个 @EnableAutoConfiguration @ComponentScan @Configuration</div><div class="line">public class MyApplication &#123;</div><div class="line">    @RequestMapping(&quot;/&quot;)</div><div class="line">    String home() &#123;</div><div class="line">        return &quot;Hello World!&quot;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        SpringApplication.run(MyApplication.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="3、直接启动main方法，就可以启动这个简易的应用了"><a href="#3、直接启动main方法，就可以启动这个简易的应用了" class="headerlink" title="3、直接启动main方法，就可以启动这个简易的应用了"></a>3、直接启动main方法，就可以启动这个简易的应用了</h3><pre><code>SpringApplication 则是用于从main方法启动Spring应用的类。默认，它会执行以下步骤：
 
+1、创建一个合适的ApplicationContext实例 （取决于classpath）
+2、注册一个CommandLinePropertySource，以便将命令行参数作为Spring properties。
+3、刷新application context，加载所有单例beans。
+4、激活所有CommandLineRunner beans。
+5、默认，直接使用SpringApplication 的静态方法run()即可。但也可以创建实例，并自行配置需要的设置。
+</code></pre>
             </div>
 
             <!-- Post Comments -->
@@ -163,8 +182,8 @@ $('.btn_click_load').click(function() {
 -->
 <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'http://yoursite.com/2016/11/03/Spring Boot/';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://yoursite.com/2016/11/03/Spring Boot/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'http://yoursite.com/2017/11/03/springboot/Spring Boot/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://yoursite.com/2017/11/03/springboot/Spring Boot/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 </script>
 
