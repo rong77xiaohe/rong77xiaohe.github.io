@@ -113,7 +113,21 @@
 </code></pre><p>也可通过<font color="red" size="5">mvn dependency:tree</font>查看依赖树：</p>
 <p><img src="https://i.imgur.com/I3Y7SqS.png" alt=""></p>
 <h3 id="2、编写一个应用启动类"><a href="#2、编写一个应用启动类" class="headerlink" title="2、编写一个应用启动类"></a>2、编写一个应用启动类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">import org.springframework.boot.*;</div><div class="line">import org.springframework.boot.autoconfigure.*;</div><div class="line">import org.springframework.stereotype.*;</div><div class="line">import org.springframework.web.bind.annotation.*;</div><div class="line">@RestController</div><div class="line">@SpringBootApplication  //一个注解代替三个 @EnableAutoConfiguration @ComponentScan @Configuration</div><div class="line">public class MyApplication &#123;</div><div class="line">    @RequestMapping(&quot;/&quot;)</div><div class="line">    String home() &#123;</div><div class="line">        return &quot;Hello World!&quot;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        SpringApplication.run(MyApplication.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="3、直接启动main方法，就可以启动这个简易的应用了"><a href="#3、直接启动main方法，就可以启动这个简易的应用了" class="headerlink" title="3、直接启动main方法，就可以启动这个简易的应用了"></a>3、直接启动main方法，就可以启动这个简易的应用了</h3><pre><code>SpringApplication 则是用于从main方法启动Spring应用的类。默认，它会执行以下步骤：
+<pre><code> 解释：
+@Configuration,@EnableAutoConfiguration,@ComponentScan。
+由于这些注解一般都是一起使用，spring boot提供了一个统一的注解@SpringBootApplication。
+@SpringBootApplication = (默认属性)@Configuration + @EnableAutoConfiguration + @ComponentScan。
+
+1、@Configuration的注解类标识这个类可以使用Spring IoC容器作为bean定义的来源。@Bean
+  注解告诉Spring，一个带有@Bean的注解方法将返回一个对象，该对象应该被注册为在Spring应
+  用程序上下文中的bean。
+
+2、@EnableAutoConfiguration：能够自动配置spring的上下文，试图猜测和配置你想要的
+   bean类，通常会自动根据你的类路径和你的bean定义自动配置。
+
+3、@ComponentScan：会自动扫描指定包下的全部标有@Component的类，并注册成bean，当然包
+   括@Component下的子注解@Service,@Repository,@Controller。
+</code></pre><h3 id="3、直接启动main方法，就可以启动这个简易的应用了"><a href="#3、直接启动main方法，就可以启动这个简易的应用了" class="headerlink" title="3、直接启动main方法，就可以启动这个简易的应用了"></a>3、直接启动main方法，就可以启动这个简易的应用了</h3><pre><code>SpringApplication 则是用于从main方法启动Spring应用的类。默认，它会执行以下步骤：
 
 1、创建一个合适的ApplicationContext实例 （取决于classpath）
 2、注册一个CommandLinePropertySource，以便将命令行参数作为Spring properties。
