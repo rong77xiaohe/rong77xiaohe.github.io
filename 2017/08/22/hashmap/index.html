@@ -94,16 +94,20 @@
 </nav>
 
         <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url();background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 ></h2></a>
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(https://i.imgur.com/o8UMa4K.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >简要阐述HashMap</h2></a>
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                <hr>
-<pre><code>title: Gallery
-date: 2016-01-17 21:39:03
-layout: gallery
-</code></pre><hr>
+                <h2 id="简述："><a href="#简述：" class="headerlink" title="简述："></a>简述：</h2><p>HashMap底层是维护了一个hash表，默认的长度16的一个数组，之所以称之为hash表，我是如此理解的，当我们做put(key,value)操作时，是根据key的hash值和数组长度取模来获得键值对应该存放在hash表中的哪个索引位置。</p>
+<h2 id="解决hash冲突的问题："><a href="#解决hash冲突的问题：" class="headerlink" title="解决hash冲突的问题："></a>解决hash冲突的问题：</h2><p>当数据量达到很大时，hash容易出现冲突的现象，但又不能简单的覆盖之前的键值对。</p>
+<h2 id="HashMap是如何解决的呢？"><a href="#HashMap是如何解决的呢？" class="headerlink" title="HashMap是如何解决的呢？"></a>HashMap是如何解决的呢？</h2><p>它在hash表相同的索引位置做了一个横向的单项链表的增长，这样就完美解决了。</p>
+<h2 id="优势："><a href="#优势：" class="headerlink" title="优势："></a>优势：</h2><p>既吸收了数组查询快的优点，又汲取了链表增删快好处，一石二鸟。</p>
+<h2 id="HashMap和HashTable的区别"><a href="#HashMap和HashTable的区别" class="headerlink" title="HashMap和HashTable的区别"></a>HashMap和HashTable的区别</h2><p>1、Hashmap线程不安全，没有加同步锁，HashTable是线程安全的</p>
+<p>2、其实他们的底层结构都一致，但是HashTable是通过计算hashCode值来确定索引位置，而HashMap是通过重新计算hash来确定索引位置的</p>
+<p>3、HashMap允许出现null键，null值，HashTable是不允许的，即使编译通过，运行时会报空指针异常</p>
+<p>4、初始容量HashMap是16，两倍扩容，HashTable是11，两倍+1扩容</p>
+<p>5、继承的父类不同，但都是现实Map接口</p>
 
             </div>
 
@@ -166,8 +170,8 @@ $('.btn_click_load').click(function() {
 -->
 <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'http://yoursite.com/gallery/index.html';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://yoursite.com/gallery/index.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'http://yoursite.com/2017/08/22/hashmap/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://yoursite.com/2017/08/22/hashmap/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 </script>
 

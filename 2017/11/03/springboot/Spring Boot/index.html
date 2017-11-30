@@ -60,7 +60,7 @@
 	            <a href="#s1">分类</a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/redis/">redis</a></li><li><a class="category-link" href="/categories/springboot/">springboot</a></li><li><a class="category-link" href="/categories/trasaction/">trasaction</a></li><li><a class="category-link" href="/categories/trasaction-spring-propagation/">trasaction spring propagation</a></li><li><a class="category-link" href="/categories/前端/">前端</a></li><li><a class="category-link" href="/categories/数据库/">数据库</a></li><li><a class="category-link" href="/categories/源码/">源码</a>
+	                        <a class="category-link" href="/categories/Java基础/">Java基础</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/redis/">redis</a></li><li><a class="category-link" href="/categories/springboot/">springboot</a></li><li><a class="category-link" href="/categories/trasaction/">trasaction</a></li><li><a class="category-link" href="/categories/trasaction-spring-propagation/">trasaction spring propagation</a></li><li><a class="category-link" href="/categories/前端/">前端</a></li><li><a class="category-link" href="/categories/数据库/">数据库</a></li><li><a class="category-link" href="/categories/源码/">源码</a>
 	                    </ul>
 	        </li>
 	        
@@ -134,6 +134,16 @@
 3、刷新application context，加载所有单例beans。
 4、激活所有CommandLineRunner beans。
 5、默认，直接使用SpringApplication 的静态方法run()即可。但也可以创建实例，并自行配置需要的设置。
+</code></pre><h4 id="4、maven常用命令"><a href="#4、maven常用命令" class="headerlink" title="4、maven常用命令"></a>4、maven常用命令</h4><p>4.1 打包 </p>
+<pre><code>mvn package
+</code></pre><p>4.2 查看依赖树 </p>
+<pre><code>mvn dependency:tree
+</code></pre><p>4.3 查看jar包内容 </p>
+<pre><code>jar tvf /list[jar包所在目录]/jar-name
+</code></pre><p>4.4 执行jar </p>
+<pre><code>java -jar /list[jar包所在目录]/jar-name
+</code></pre><p>4.5 启动spring-boot应用</p>
+<pre><code>mvn spring-boot:run
 </code></pre>
             </div>
 

@@ -94,16 +94,21 @@
 </nav>
 
         <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url();background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 ></h2></a>
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(https://i.imgur.com/ybIJqvJ.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >死锁</h2></a>
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                <hr>
-<pre><code>title: Gallery
-date: 2016-01-17 21:39:03
-layout: gallery
-</code></pre><hr>
+                <h2 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h2><p>死锁即是两个或两个以上的线程在争夺<font color="red">同一块资源</font>，而出现互相等待的现象。若无外力作用，将一直保持无法推进的状态。</p>
+<h2 id="产生的条件（发生死锁时的现象）："><a href="#产生的条件（发生死锁时的现象）：" class="headerlink" title="产生的条件（发生死锁时的现象）："></a>产生的条件（发生死锁时的现象）：</h2><p>1、互斥，资源自身属性，只能被一个线程占有</p>
+<p>2、不可抢占，当一个资源被一个线程拥有，其他线程无法夺取</p>
+<p>3、占有且申请，占有资源，申请被别的线程占用的资源，出现堵塞</p>
+<p>4、循环等待，a等待b，b等待c，c等待a（等待别的线程释放资源）</p>
+<h2 id="避免死锁："><a href="#避免死锁：" class="headerlink" title="避免死锁："></a>避免死锁：</h2><p>1、打破以上四者之一</p>
+<p>2、<font color="red">银行家算法</font></p>
+<p>我们首先引入安全序列的定义：所谓系统是安全的，是指系统中的所有进程能够按照某一种次序分配资源，并且依次地运行完毕，这种进程序列{P1，P2，…，Pn}就是安全序列。如果存在这样一个安全序列，则系统是安全的；如果系统不存在这样一个安全序列，则系统是不安全的。</p>
+<p>安全序列{P1，P2，…，Pn}是这样组成的：若对于每一个进程Pi，它需要的附加资源可以被系统中当前可用资源加上所有进程Pj当前占有资源之和所满足，则{P1，P2，…，Pn}为一个安全序列，这时系统处于安全状态，不会进入死锁状态。 　</p>
+<p>银行家算法是从当前状态出发，逐个按安全序列检查各客户谁能完成其工作，然后假定其完成工作且归还全部贷款，再进而检查下一个能完成工作的客户，……。如果所有客户都能完成工作，则找到一个安全序列，银行家才是安全的。</p>
 
             </div>
 
@@ -166,8 +171,8 @@ $('.btn_click_load').click(function() {
 -->
 <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'http://yoursite.com/gallery/index.html';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://yoursite.com/gallery/index.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'http://yoursite.com/2017/08/04/死锁/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://yoursite.com/2017/08/04/死锁/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 </script>
 
