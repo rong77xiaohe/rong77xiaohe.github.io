@@ -119,11 +119,11 @@ id_rsa.pub ：公钥
 <li><p>导入远程服务器</p>
 <ul>
 <li>复制公钥到远程服务器<ul>
-<li>scp {-P port} ~/.ssh/id_rsa.pub username@host:</li>
+<li>scp ~/.ssh/id_rsa.pub root@host:~</li>
 </ul>
 </li>
 <li>远程服务器<ul>
-<li>cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</li>
+<li>cat ~/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</li>
 </ul>
 </li>
 <li>更改权限（远程服务器） <ul>
@@ -135,6 +135,13 @@ id_rsa.pub ：公钥
 </ul>
 </li>
 </ul>
+<font color="red" size="6">注：</font>
+
+<p>  1：ssh-keygen 会生成 两个文件 id_rsa.pub和id_rsa</p>
+<p>  2：authorized_keys文件用来存外来机器的公钥（如果没有可以手动创建）</p>
+<p>  3：当使用ssh免密码登录时会自动生成一个known_hosts文件，如登录出现问题时需要删除此文件</p>
+<p>  4：如果.ssh文件夹是手动创建 chmod 700 .ssh</p>
+<p>参考网址：<a href="http://blog.csdn.net/zengqiang1/article/details/52997885" target="_blank" rel="external">http://blog.csdn.net/zengqiang1/article/details/52997885</a></p>
 
             </div>
 
