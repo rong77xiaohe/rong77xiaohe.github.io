@@ -1,0 +1,253 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/logo_xiaohe.png"/>
+	 <link rel="shortcut icon" href="/img/logo_xiaohe.png">
+	
+			
+    <title>
+    XIAOHE
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/mic_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    
+    	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+
+			    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+</head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">XIAOHE</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">分类</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="category-link" href="/categories/Java基础/">Java基础</a></li><li><a class="category-link" href="/categories/Linux/">Linux</a></li><li><a class="category-link" href="/categories/redis/">redis</a></li><li><a class="category-link" href="/categories/springboot/">springboot</a></li><li><a class="category-link" href="/categories/trasaction/">trasaction</a></li><li><a class="category-link" href="/categories/trasaction-spring-propagation/">trasaction spring propagation</a></li><li><a class="category-link" href="/categories/前端/">前端</a></li><li><a class="category-link" href="/categories/数据库/">数据库</a></li><li><a class="category-link" href="/categories/源码/">源码</a>
+	                    </ul>
+	        </li>
+	        
+	        <!-- archives  归档   --> 
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+		        <li>
+		            <a href="/about/" title="关于">
+		                关于
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/tags/" title="标签">
+		                标签
+		            </a>
+		        </li>
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+		            
+		            
+		            
+		            
+			</ul>
+</nav>
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url();background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >nio-buffer</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <p>Buffer扮演的角色</p>
+<blockquote>
+<p>可写入数据也可从中读取数据的内存</p>
+</blockquote>
+<p>Buffer的三个基本概念： capacity limit position</p>
+<ul>
+<li>capacity : 缓存的容量，当存入的数据超过容量后，只有清除缓存后才能继续往里写数据</li>
+<li>position : 写模式下写到的数据位置，初始为0，最大为capacity-1;写模式下，重置为0，向前移动   到下一个可读的位置</li>
+<li>limit    : 写模式下，等于capacity;读模式下，等于写模式下的position【你能读到之前写入的所有数据的上限】</li>
+</ul>
+<p>Buffer的分类</p>
+<blockquote>
+<p>除Boolean外的其他其他数据类型均可存入Buffer中<br>ByteBuffer ShortBuffer IntBuffer LongBuffer CharBuffer DoubleBuffer FloatBuffer</p>
+<ul>
+<li>MapperByteBuffer【有些特别，以后章节专门介绍】 </li>
+</ul>
+</blockquote>
+<p>Buffer的内存分配：利用每个Buffer类的allocate方法</p>
+<blockquote>
+<p>ByteBuffer buf = ByteBuffer.allocate(48); //分配48个字节的ByteBuffer</p>
+</blockquote>
+<p>Buffer写模式</p>
+<ul>
+<li>从Channel中读到缓存中： int bytesRead = inChannel.read(buf);</li>
+<li>直接put: buf.put(127);</li>
+</ul>
+<p>Buffer读模式</p>
+<ul>
+<li>从缓存读到通道中： int bytesRead = inChannel.write(buf);</li>
+<li>直接拿 ： buf.get();</li>
+</ul>
+<p>Buffer的其他方法：</p>
+<ul>
+<li>切换到读模式： flip()</li>
+<li>重新读取数据： rewind()</li>
+<li>以上两种方法有类似的效果，但是切换的过程有所不同，前者是从写切换到读，后者是一直处于读模式</li>
+<li><p>清空缓存，数据读完，准备下一次写入：clear(),compact()</p>
+<ul>
+<li>clear:清空所有数据，包括未读的。【覆盖原有的数据】</li>
+<li>compact: 标定未读数据的位置，写数据从最后一个未读数据开始。</li>
+</ul>
+</li>
+<li><p>mark: 重置position</p>
+</li>
+<li>reset: 恢复重置的position</li>
+</ul>
+
+            </div>
+
+            <!-- Post Comments -->
+            
+    <!-- 使用 DISQUS_CLICK -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+
+<!-- add animation -->
+<style>
+	.disqus_click_btn {
+            line-height: 30px;
+            margin: 0;
+            min-width: 50px;
+            padding: 0 14px;
+            display: inline-block;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            overflow: hidden;
+            will-change: box-shadow;
+            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
+            outline: 0;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            vertical-align: middle;
+            border: 0;
+            background: rgba(158, 158, 158, .2);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+            color: #fff;
+            background-color: #7EC0EE;
+            text-shadow: 0
+        }
+</style>
+	
+<div class="btn_click_load" id="disqus_bt"> 
+    <button class="disqus_click_btn">点击查看评论</button>
+</div>
+
+<!--
+<script type="text/javascript">
+$('.btn_click_load').click(function() {
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'http-miccall-tech'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    document.getElementById('disqus_bt').style.display = "none";
+});
+</script>
+-->
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://yoursite.com/2017/12/02/nio/buffer/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://yoursite.com/2017/12/02/nio/buffer/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+
+<script type="text/javascript">
+    $('.btn_click_load').click(function() {  //click to load comments
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document;
+            var s = d.createElement('script');
+            s.src = '//http-miccall-tech.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', + new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        $('.btn_click_load').css('display','none');
+    });
+</script>
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a href="# " style="border-bottom: none;">xiaohe</a></li>
+            </ul>
+            
+            	<span id="busuanzi_container_site_pv">2017总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>
